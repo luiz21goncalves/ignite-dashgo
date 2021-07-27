@@ -21,7 +21,9 @@ export default function SignIn() {
   })
   const { errors } = formState
 
-  const handleSingIn: SubmitHandler<SignInFormData> = (values) => {
+  const handleSingIn: SubmitHandler<SignInFormData> = async (values) => {
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
     console.log(values)
   }
 
