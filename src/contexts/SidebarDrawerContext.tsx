@@ -1,30 +1,34 @@
-import { useDisclosure, UseDisclosureReturn } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useContext } from "react";
-import { createContext, ReactNode } from "react";
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useContext } from 'react';
+import { createContext, ReactNode } from 'react';
+
+import { useDisclosure, UseDisclosureReturn } from '@chakra-ui/react';
 
 interface SidebarDrawerProviderProps {
   children: ReactNode;
 }
 
-type SidebarDrawerContextData = UseDisclosureReturn
+type SidebarDrawerContextData = UseDisclosureReturn;
 
 const SidebarDrawerContext = createContext({} as SidebarDrawerContextData);
 
-export function SidebarDrawerProvider({ children }: SidebarDrawerProviderProps) {
-  const disclosure = useDisclosure()
-  const router = useRouter()
+export function SidebarDrawerProvider({
+  children,
+}: SidebarDrawerProviderProps) {
+  const disclosure = useDisclosure();
+  const router = useRouter();
 
   useEffect(() => {
-    disclosure.onClose()
-  }, [router.asPath])
+    disclosure.onClose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.asPath]);
 
   return (
     <SidebarDrawerContext.Provider value={disclosure}>
       {children}
     </SidebarDrawerContext.Provider>
-  )
+  );
 }
 
-export const useSidebarDrawer = () => useContext(SidebarDrawerContext)
+export const useSidebarDrawer = () => useContext(SidebarDrawerContext);

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import {
   Box,
   Button,
@@ -14,40 +16,35 @@ import {
   Tr,
   useBreakpointValue,
   Spinner,
-} from "@chakra-ui/react";
-import Link from "next/link";
-import { RiAddLine, RiPencilLine } from "react-icons/ri";
-import { useQuery } from "react-query";
+} from '@chakra-ui/react';
+import { RiAddLine, RiPencilLine } from 'react-icons/ri';
+import { useQuery } from 'react-query';
 
-import { Header } from "../../components/Header";
-import { Pagination } from "../../components/Pagination";
-import { Sidebar } from "../../components/Sidebar";
+import { Header } from '../../components/Header';
+import { Pagination } from '../../components/Pagination';
+import { Sidebar } from '../../components/Sidebar';
 
 export default function UserList() {
   const { data, isLoading, error } = useQuery('users', async () => {
-    const response = await fetch('http://localhost:3000/api/users')
-    const data = await response.json()
+    const response = await fetch('http://localhost:3000/api/users');
+    const responseData = await response.json();
 
-    const users = data.users.map(findUser => {
-      return {
-        id: findUser.id,
-        name: findUser.name,
-        email: findUser.email,
-        created_at: new Date(findUser.createdAt).toLocaleDateString('pt-BR', {
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric',
-        }),
-      }
-    })
-
-    return users
-  })
+    return responseData.users.map((findUser) => ({
+      id: findUser.id,
+      name: findUser.name,
+      email: findUser.email,
+      created_at: new Date(findUser.createdAt).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+      }),
+    }));
+  });
 
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
-  })
+  });
 
   return (
     <Box>
@@ -63,19 +60,19 @@ export default function UserList() {
             </Heading>
 
             <Link href="/users/create" passHref>
-              <Button 
+              <Button
                 as="a"
                 size="sm"
                 fontSize="sm"
                 colorScheme="pink"
-                leftIcon={<Icon as={RiAddLine} fontSize="20"/>}
-                >
+                leftIcon={<Icon as={RiAddLine} fontSize="20" />}
+              >
                 Criar novo
               </Button>
             </Link>
           </Flex>
 
-          { isLoading ? (
+          {isLoading ? (
             <Flex justify="center">
               <Spinner />
             </Flex>
@@ -84,27 +81,26 @@ export default function UserList() {
               <Text>Falha ao obter os dados dos usuários</Text>
             </Flex>
           ) : (
-          <>
-            <Table colorScheme="whiteAlpha">
-              <Thead>
-                <Tr>
-                  <Th px={["4", "4", "6"]} color="gray.300" w="8" >
-                    <Checkbox colorScheme="pink" />
-                  </Th>
+            <>
+              <Table colorScheme="whiteAlpha">
+                <Thead>
+                  <Tr>
+                    <Th px={['4', '4', '6']} color="gray.300" w="8">
+                      <Checkbox colorScheme="pink" />
+                    </Th>
 
-                  <Th>Usuário</Th>
+                    <Th>Usuário</Th>
 
-                  { isWideVersion && <Th>Data de cadastro</Th> }
+                    {isWideVersion && <Th>Data de cadastro</Th>}
 
-                  { isWideVersion && <Th w="8"/> }
-                </Tr>
-              </Thead>
+                    {isWideVersion && <Th w="8" />}
+                  </Tr>
+                </Thead>
 
-              <Tbody>
-                {data.map(user => {
-                  return (
+                <Tbody>
+                  {data.map((user) => (
                     <Tr key={user.id}>
-                      <Td px={["4", "4", "6"]}>
+                      <Td px={['4', '4', '6']}>
                         <Checkbox colorScheme="pink" />
                       </Td>
 
@@ -115,11 +111,11 @@ export default function UserList() {
                         </Text>
                       </Td>
 
-                      { isWideVersion && <Td>{user.created_at}</Td> }
-                      
-                      { isWideVersion && (
+                      {isWideVersion && <Td>{user.created_at}</Td>}
+
+                      {isWideVersion && (
                         <Td>
-                          <Button 
+                          <Button
                             as="a"
                             size="sm"
                             fontSize="sm"
@@ -129,19 +125,17 @@ export default function UserList() {
                             Editar
                           </Button>
                         </Td>
-                      ) }
+                      )}
                     </Tr>
-                  )
-                })}
-              </Tbody>
-            </Table>
+                  ))}
+                </Tbody>
+              </Table>
 
-            <Pagination />
-          </>
+              <Pagination />
+            </>
           )}
-
         </Box>
       </Flex>
     </Box>
-  )
+  );
 }

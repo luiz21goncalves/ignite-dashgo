@@ -1,3 +1,6 @@
 {
-  "extends": ["@lukemorales"]
+  "extends": ["@lukemorales"],
+  "rules": {
+    "no-nested-ternary": "off"
+  }
 }
