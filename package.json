@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test": "jest"
   },
   "dependencies": {
     "@chakra-ui/core": "^0.8.0",
@@ -29,11 +30,15 @@
   },
   "devDependencies": {
     "@lukemorales/eslint-config": "1.0.16",
+    "@testing-library/dom": "^8.11.1",
+    "@testing-library/jest-dom": "^5.15.0",
+    "@testing-library/react": "^12.1.2",
     "@types/faker": "^5.5.8",
     "@types/node": "^16.4.1",
     "@types/react": "^17.0.14",
     "@typescript-eslint/eslint-plugin": "4.15.2",
     "@typescript-eslint/parser": "4.15.2",
+    "babel-jest": "^27.3.1",
     "eslint": "7.21.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-next": "11.0.1",
@@ -53,6 +58,7 @@
     "eslint-plugin-react-redux": "3.3.2",
     "eslint-plugin-testing-library": "3.10.1",
     "faker": "^5.5.3",
+    "jest": "^27.3.1",
     "miragejs": "^0.1.41",
     "prettier": "2.2.1",
     "typescript": "^4.3.5"
